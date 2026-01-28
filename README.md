@@ -1,1 +1,564 @@
-# cv
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A CANVAS OF DREAMS - Portfolio Website</title>
+    <!-- Load Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Custom Fonts: Dancing Script (cursive) and Inter (Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* COLOR & FONT DEFINITIONS */
+        :root {
+            --primary-color: #ec7097; /* Main Accent Pink */
+            --secondary-color: #fce4ec; /* Very Light Pink (for background boxes) */
+            --accent-color: #ee307c; /* Brighter Pink */
+            --text-color: #333333; /* Dark Gray for content */
+            --font-heading: 'Dancing Script', cursive;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* Set page background and Default Font */
+        body {
+            /* Soft pink gradient background applied to the whole body */
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            font-family: var(--font-body);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* NEW LAYOUT: Container now acts as a content limiter, NOT a white sheet */
+        .cv-container {
+            background-color: transparent; 
+            width: 100%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding-bottom: 2rem; 
+            overflow: hidden; 
+        }
+
+        /* Styling for Cursive Section Titles */
+        .section-title-cursive {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        /* ================================================================= */
+        /* HEADER STYLES (Part 1 - Profile & Introduction) */
+        /* ================================================================= */
+        .header-bg {
+            /* Use your uploaded image */
+            background-image: url('IMAGES/may.jpg'); 
+            background-size: cover;
+            background-position: center 30%; 
+            background-repeat: no-repeat;
+            position: relative; 
+            padding: 40px clamp(20px, 6vw, 60px);
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            max-width: 100%;
+            min-height: 250px; 
+            display: flex; 
+            align-items: center;
+        }
+        
+        /* DARK OVERLAY REMOVED: This removes the grayish color you were referring to */
+        .header-bg::before {
+            content: none; /* No overlay */
+        }
+
+
+        /* Ensuring content stays centered inside the 1200px max-width of the cv-container */
+        .header-content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative; 
+            z-index: 2; /* Ensure content is above the overlay */
+            width: 100%; 
+        }
+
+
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            /* White border is crucial here for visibility against the background */
+            border: 5px solid white; 
+            box-shadow: 0 0 0 5px var(--primary-color);
+            flex-shrink: 0;
+            margin: 0 auto 20px auto; /* Centered on mobile */
+        }
+        
+        /* Background is transparent */
+        .intro-box-header {
+            background-color: transparent; 
+            padding: 20px 0; 
+            border-radius: 15px;
+            font-size: 0.95rem;
+            position: relative;
+            margin-top: 10px;
+            max-width: 100%;
+            box-shadow: none; 
+        }
+        
+        /* UPDATED: Text color is now dark for contrast against the lighter background image */
+        .intro-box-header p {
+            color: var(--text-color); /* Dark Gray */
+            font-weight: 500;
+            /* Removed text shadow as it's not needed with dark text on a lighter background */
+            text-shadow: none;
+            /* Added a subtle white background color to the text itself for maximum readability */
+            background-color: rgba(255, 255, 255, 0.7); /* 70% opaque white background */
+            padding: 5px 10px;
+            line-height: 1.8;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* CLOUD/BUBBLE ICON AESTHETIC - Removed the decorative circles as they look out of place with a transparent background */
+        .intro-box-header::before, .intro-box-header::after {
+            content: none;
+        }
+        
+        /* UPDATED: Text styles changed to dark gray for contrast */
+        .name-intro-block h1 {
+            color: var(--text-color) !important; 
+            font-family: var(--font-body); 
+            font-weight: 700; 
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7); /* Subtle white shadow for lift */
+        }
+        .name-intro-block h2 {
+            color: var(--text-color) !important;
+            font-family: var(--font-body); 
+            font-weight: 500;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+        }
+        .name-intro-block p {
+            color: var(--accent-color) !important; /* Accent color for the motto */
+            font-family: var(--font-heading); 
+            font-size: 1.1rem; 
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+        }
+
+
+        /* Desktop Layout (Large Screens) */
+        @media (min-width: 1024px) {
+            .header-content {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 40px;
+                text-align: left;
+            }
+            .profile-img-container {
+                margin: 0; /* Align left */
+            }
+            .intro-box-header {
+                max-width: 700px;
+            }
+            /* Adjusted padding to match header padding */
+            .main-content-grid {
+                 padding: 40px clamp(20px, 6vw, 60px);
+            }
+        }
+
+        /* ================================================================= */
+        /* GENERAL CONTENT STYLES */
+        /* ================================================================= */
+        .content-box {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            height: fit-content;
+            position: relative; 
+        }
+
+        /* Aesthetic Line Decoration (Top Right) */
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 15px;
+            height: 15px;
+            border-top: 2px solid var(--accent-color);
+            border-right: 2px solid var(--accent-color);
+            border-radius: 0 5px 0 0;
+            opacity: 0.5;
+        }
+        /* Aesthetic Line Decoration (Bottom Left) */
+        .content-box::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 15px;
+            height: 15px;
+            border-bottom: 2px solid var(--accent-color);
+            border-left: 2px solid var(--accent-color);
+            border-radius: 0 0 0 5px;
+            opacity: 0.5;
+        }
+
+
+        .content-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .content-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .content-list li::before {
+            content: '●'; /* Pink circle bullet */
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-size: 0.8em;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+        .content-list .detail-item strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        /* Featured Artworks Grid for 4 images */
+        .artworks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+            gap: 15px;
+            margin-top: 15px;
+        }
+        /* 4 columns on tablet/desktop */
+        @media (min-width: 768px) {
+            .artworks-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .artworks-grid img {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Ensures square boxes */
+            object-fit: cover;
+            border-radius: 12px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s;
+        }
+        .artworks-grid img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Contact Box Styling */
+        .contact-box-footer {
+            background: linear-gradient(145deg, var(--accent-color), var(--primary-color));
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white;
+            margin-top: 25px;
+        }
+        .contact-box-footer .section-title-cursive {
+            color: white !important;
+            margin-bottom: 5px;
+        }
+        .contact-box-footer a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 500;
+            display: block;
+            margin-top: 5px;
+            transition: opacity 0.2s;
+        }
+
+        /* Specific icon grid sizing */
+        .software-icon-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 10px;
+            margin-top: 10px;
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .software-icon-grid {
+                grid-template-columns: repeat(6, 1fr); 
+            }
+        }
+        
+        .software-icon-grid .tool-label {
+            font-size: 0.7rem; 
+            line-height: 1;
+            margin-top: 4px;
+            display: block;
+            font-weight: 500;
+        }
+        
+        /* This style applies to all logo images */
+        .software-icon-grid img {
+            width: 48px; 
+            height: 48px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white; 
+            border-radius: 8px; 
+            padding: 4px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================= -->
+    <!-- PART 1: HEADER SECTION (Full Width Banner with Background Image) -->
+    <!-- ================================================================= -->
+    <header class="header-bg">
+        <!-- The dark overlay is now gone -->
+        
+        <div class="header-content-wrapper">
+            <div class="header-content">
+                
+                <!-- Profile Image -->
+                <div class="profile-img-container">
+                    <img src="IMAGES/TAN.jpg" 
+                            alt="Angeline Visitacion Profile Picture" 
+                            class="w-full h-full object-cover" 
+                            onerror="this.src='https://placehold.co/150x150/FFB6C1/fff?text=Angeline'">
+                </div>
+
+                <!-- Name, Title, and Intro -->
+                <div class="name-intro-block flex-grow text-center lg:text-left">
+                    <!-- Name: Bold Inter Font -->
+                    <h1 class="font-bold text-4xl lg:text-5xl text-white tracking-tight" style="font-family: var(--font-body); font-weight: 700;">Angeline Visitacion</h1>
+                    <!-- Title: Medium Inter Font -->
+                    <h2 class="text-xl font-medium text-gray-200 mb-2 uppercase" style="font-family: var(--font-body); font-weight: 500;">BSIT Software Development Student</h2>
+                    <!-- Motto: Cursive Dancing Script Font -->
+                    <p class="text-base font-medium text-gray-300 italic mb-4" style="font-family: var(--font-heading); font-size: 1.1rem;">"Data-Driven Growth Meets Creative Spark"</p>
+
+                    <!-- Intro Description Box (Transparent with slightly opaque white text background) -->
+                    <div class="intro-box-header">
+                        <p>Hello! I'm Angeline 'Kate' Visitacion, and I'm currently riding the wildest wave in tech: learning to code! 🌊 I'm a passionate big data dreamer with a serious appetite for learning analytics and turning raw information into real-world magic. Think of me as a digital detective—driven, endlessly curious, and always ready to experiment with code to bring my next big idea to life. I might be a beginner, but I bring a full spark and am hungry to contribute!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="cv-container">
+        <!-- The cv-container now acts as the content wrapper to limit width and center content -->
+        
+        <!-- ================================================================= -->
+        <!-- PART 2: MAIN CONTENT GRID -->
+        <!-- ================================================================= -->
+        <div class="main-content-grid grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Featured Artworks Section -->
+            <div class="lg:col-span-3 mb-8">
+                <div class="content-box">
+                    <h3 class="section-title-cursive text-center">Featured Artworks</h3>
+                    <!-- Your 4 uploaded images are used here -->
+                    <div class="artworks-grid">
+                        <img src="IMAGES/hey.jpg" alt="Artwork 1" title="Artwork 1" onerror="this.src='https://placehold.co/200x200/FFB6C1/333?text=Art+1'">
+                        <img src="IMAGES/nay.jpg" alt="Artwork 2" title="Artwork 2" onerror="this.src='https://placehold.co/200x200/F4C2C2/333?text=Art+2'">
+                        <img src="IMAGES/nee.jpg" alt="Artwork 3" title="Artwork 3" onerror="this.src='https://placehold.co/200x200/DDA0DD/333?text=Art+3'">
+                        <img src="IMAGES/yuu.jpg" alt="Artwork 4" title="Artwork 4" onerror="this.src='https://placehold.co/200x200/FF69B4/333?text=Art+4'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEFT COLUMN (2/3 size on desktop) -->
+            <div class="lg:col-span-2">
+                
+                <!-- Personal Info Box -->
+                <div class="content-box">
+                    <h3 class="section-title-cursive">Personal Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 text-sm">
+                        <div><strong>Fullname:</strong> Angeline Visitacion</div>
+                        <div><strong>Contact No.:</strong> <a href="tel:+639383497163" class="text-gray-700 hover:text-gray-900">+639383497163</a></div>
+                        <div><strong>Date of Birth:</strong> 11/14, 2002</div>
+                        <div><strong>Email:</strong> <a href="mailto:angelinecastardo@gmail.com" class="text-gray-700 hover:text-gray-900">angelinecastardo@gmail.com</a></div>
+                        <div class="md:col-span-2"><strong>Address:</strong> C7 #403 Makati Prime Residences, Makati City</div>
+                    </div>
+                </div>
+
+                <!-- Activities Box -->
+                <div class="content-box">
+                    <h3 class="section-title-cursive">Activities & Hobbies</h3>
+                    <ul class="content-list text-sm font-medium">
+                        <li class="detail-item">
+                            <span class="font-bold">Digital Content Creation & Marketing</span><br>
+                            Creating high-engagement content for platforms like TikTok and Instagram, utilizing Canva for professional design execution.
+                        </li>
+                        <li class="detail-item">
+                            <span class="font-bold">Web Development Fundamentals (HTML/CSS)</span><br>
+                            Actively learning and practicing HTML and CSS for front-end web development, using VS Code as the primary development environment.
+                        </li>
+                        <li class="detail-item">
+                            <span class="font-bold">Data Analytics & Problem Solving</span><br>
+                            Engaging in self-directed study of data analysis techniques to prepare for the BSIT Data Analytics course.
+                        </li>
+                        <li class="detail-item">
+                            <span class="font-bold">2024 - Present | Red Cross Youth Makati City Chapter</span><br>
+                            Active member participating in volunteer programs and community service initiatives.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Software Box -->
+                <div class="content-box">
+                    <!-- Added a gear emoji icon inside a span, aligned with flex for aesthetic spacing -->
+                    <h3 class="section-title-cursive flex items-center gap-3">
+                        <span class="text-2xl text-pink-600 leading-none" style="font-family: var(--font-body); font-weight: 300;">⚙️</span>
+                        Technical Proficiencies
+                    </h3>
+                    <p class="text-sm font-semibold text-gray-700 mb-2">Development & Creative:</p>
+                    <div class="software-icon-grid mb-4">
+                        <!-- Logos/icons -->
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/html-5--v1.png" alt="HTML" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">HTML</span>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/css3.png" alt="CSS" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">CSS</span>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/visual-studio-code-2019.png" alt="VS Code" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">VS Code</span>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/canva.png" alt="Canva" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">Canva</span>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/adobe-photoshop--v1.png" alt="Adobe Photoshop" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">Photoshop</span>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/instagram-new--v1.png" alt="Instagram" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">Instagram</span>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/fluency/48/000000/tiktok.png" alt="TikTok" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">TikTok</span>
+                        </div>
+                    </div>
+
+                    <p class="text-sm font-semibold text-gray-700 mb-2">Sales, CRM & Data (From Resume):</p>
+                    <div class="software-icon-grid mt-2">
+                        <!-- Professional skills - Logos/icons -->
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/ms-excel.png" alt="Microsoft Excel" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">MS Excel</span>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/zendesk.png" alt="Zendesk" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">Zendesk</span>
+                        </div>
+                        <div class="text-center">
+                            <!-- Generic icon for Convoso -->
+                            <img src="https://img.icons8.com/fluency/48/000000/service-bell.png" alt="Convoso" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">Convoso</span>
+                        </div>
+                        <div class="text-center">
+                            <!-- Generic icon for Five9 -->
+                            <img src="https://img.icons8.com/fluency/48/000000/headset.png" alt="Five9" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">Five9</span>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/microsoft-teams-2019.png" alt="Teams" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">MS Teams</span>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://img.icons8.com/color/48/000000/slack.png" alt="Slack" class="w-12 h-12 rounded-lg shadow-md mb-1">
+                            <span class="tool-label">Slack</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN (Sidebar - 1/3 size on desktop) -->
+            <div class="lg:col-span-1">
+                
+                <!-- Education Box -->
+                <div class="content-box">
+                    <h3 class="section-title-cursive">Education</h3>
+                    <p class="font-bold text-gray-800 mt-2">2025 - Present</p>
+                    <p class="text-lg font-semibold text-gray-700">BSIT Software Development</p>
+                    <p class="text-sm text-gray-500">Student</p>
+                </div>
+                
+                <!-- Online Portfolio Box -->
+                <div class="content-box">
+                    <h3 class="section-title-cursive">Online Portfolio</h3>
+                    <ul class="content-list text-sm font-medium">
+                        <li class="detail-item">
+                            <strong>Instagram</strong><br>
+                            <!-- Added target="_blank" to open in new tab -->
+                            <a href="https://www.instagram.com/scorpiooo_baddie/" target="_blank" class="text-gray-700 hover:text-pink-600 transition duration-150">@scorpiooo_baddie</a>
+                        </li>
+                        <li class="detail-item">
+                            <strong>Facebook</strong><br>
+                            <!-- Added target="_blank" to open in new tab -->
+                            <a href="https://www.facebook.com/kate.angeline.883391/" target="_blank" class="text-gray-700 hover:text-pink-600 transition duration-150">Personal Profile</a>
+                        </li>
+                        <li class="detail-item">
+                            <strong>YouTube</strong><br>
+                            <!-- Added target="_blank" to open in new tab -->
+                            <a href="https://www.youtube.com/@Scorpiooo_baddie" target="_blank" class="text-gray-700 hover:text-pink-600 transition duration-150">@Scorpiooo_baddie</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Languages Box -->
+                <div class="content-box">
+                    <h3 class="section-title-cursive">Languages</h3>
+                    <ul class="content-list text-sm font-medium">
+                        <li class="detail-item">
+                            <strong>Chavacano</strong> (Mother Tongue)
+                        </li>
+                        <li class="detail-item">
+                            <strong>Filipino</strong> (Fluent)
+                        </li>
+                        <li class="detail-item">
+                            <strong>English</strong> (Proficient)
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- CONTACT ME BOX -->
+                <div class="contact-box-footer">
+                    <h3 class="section-title-cursive">
+                        <span class="text-2xl" style="font-family: var(--font-body); font-weight: 300;">💌</span> Contact Me
+                    </h3>
+                    <p class="font-bold text-lg mt-2">
+                        <a href="tel:+639383497163">+639383497163 (Call or Zalo)</a>
+                    </p>
+                    <p class="text-sm">
+                        <a href="mailto:angelinecastardo@gmail.com">angelinecastardo@gmail.com</a>
+                    </p>
+                    <p class="text-xs mt-3 opacity-90">Let's connect and create something amazing!</p>
+                </div>
+            </div>
+            
+        </div>
+        
+    </main>
+
+</body>
+</html>
